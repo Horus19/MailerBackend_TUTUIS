@@ -1,10 +1,34 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { MailService } from './mail/mail.service';
 
 @Module({
-  imports: [],
+  imports: [
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.mailgun.org',
+        port: 587,
+        auth: {
+          user: process.env.MAILGUN_USERNAME,
+          pass: process.env.MAILGUN_PASSWORD,
+        },
+      },
+      defaults: {
+        from: '"NestJS" <sender@example.com>',
+      },
+      template: {
+        dir: __dirname + '/mail/templates/',
+        adapter: new HandlebarsAdapter(),
+        options: {
+          strict: true,
+        },
+      },
+    }),
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, MailService],
 })
 export class AppModule {}
