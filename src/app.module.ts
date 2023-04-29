@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { MailService } from './mail/mail.service';
+import { RabbitMqService } from './mail/rabbit-mq/rabbit-mq.service';
 
 @Module({
   imports: [
@@ -29,6 +30,6 @@ import { MailService } from './mail/mail.service';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, MailService],
+  providers: [AppService, MailService, RabbitMqService],
 })
 export class AppModule {}
