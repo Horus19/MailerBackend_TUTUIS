@@ -21,7 +21,7 @@ export class MailService {
   async sendWelcomeEmail(bienvenidaDto: BienvenidaDto) {
     try {
       await this.mailerService.sendMail({
-        from: 'admin@tutuis.com',
+        from: process.env.MAIL_REMITENTE,
         to: bienvenidaDto.email,
         subject: 'Bienvenid@ a Tutuis',
         template: 'Bienvenida',

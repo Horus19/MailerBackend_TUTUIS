@@ -10,7 +10,7 @@ import { RabbitMqService } from './mail/rabbit-mq/rabbit-mq.service';
   imports: [
     MailerModule.forRoot({
       transport: {
-        host: 'smtp.mailgun.org',
+        host: 'email-smtp.us-east-2.amazonaws.com',
         port: 587,
         auth: {
           user: process.env.MAILGUN_USERNAME,
